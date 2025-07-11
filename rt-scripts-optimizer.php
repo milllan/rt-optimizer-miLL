@@ -292,7 +292,7 @@ function rt_scripts_handler($tag, $handle, $src)
 	$paths_option_array   = explode(',', get_option('rt_scripts_optimizer_exclude_paths'));
 
 	// Get handle using the paths provided in the settings.
-	foreach ($paths_option_array as $key => $script_path) {
+	foreach ($paths_option_array as $script_path) {
 		$script_path = trim($script_path);
 		if (empty($script_path)) {
 			continue;
@@ -550,7 +550,7 @@ function skip_css_concatination($do_concat, $handle)
 
 	$skip_concatination_handles = explode(',', get_option('rt_scripts_optimizer_skip_css_concatination_handles'));
 
-	foreach ($skip_concatination_handles as $key => $skip_concatination_handle) {
+	foreach ($skip_concatination_handles as $skip_concatination_handle) {
 		if ($skip_concatination_handle === $handle) {
 			return false;
 		}
