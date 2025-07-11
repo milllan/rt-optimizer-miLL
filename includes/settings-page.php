@@ -9,7 +9,9 @@
  */
 
 /**
- * Custom option's and settings
+ * Registers settings, sections, and fields for the RT Scripts Optimizer plugin settings page in the WordPress admin.
+ *
+ * This function sets up all available options for script and style exclusions, async loading, AMP boilerplate CSS, CSS concatenation, and commenting out stylesheets by handle. It defines the settings section and adds all relevant fields to the settings page.
  */
 function rt_settings_init()
 {
@@ -122,9 +124,11 @@ add_action('admin_init', 'rt_settings_init');
 
 
 /**
- * Section Description callback.
+ * Outputs the description for the RT Scripts Optimizer settings section.
  *
- * @param array $args arguments passed.
+ * Displays instructions for excluding scripts from optimization by handle or path.
+ *
+ * @param array $args Arguments passed to the section callback.
  */
 function rt_scripts_optimizer_settings_callback($args)
 {
@@ -136,9 +140,11 @@ function rt_scripts_optimizer_settings_callback($args)
 }
 
 /**
- * Field callback to accept handles to exclude.
+ * Renders the input field for excluding script handles from optimization.
  *
- * @param array $args arguments passed.
+ * Displays a text input where users can specify script handles to be excluded from the optimizer, allowing those scripts to load normally.
+ *
+ * @param array $args Arguments passed to the callback.
  */
 function rt_scripts_optimizer_handles_field_callback($args)
 {
@@ -162,9 +168,9 @@ function rt_scripts_optimizer_handles_field_callback($args)
 }
 
 /**
- * Field callback to accept handles of stylesheets to be dequeued when user not logged in.
+ * Renders the input field for specifying stylesheet handles to dequeue for non-logged-in users.
  *
- * @param array $args arguments passed.
+ * @param array $args Arguments passed to the callback.
  */
 function rt_scripts_optimizer_style_dequeue_non_logged_handles_callback($args)
 {
@@ -188,9 +194,11 @@ function rt_scripts_optimizer_style_dequeue_non_logged_handles_callback($args)
 }
 
 /**
- * Field callback to accept handles of stylesheets to be loaded asynchronously.
+ * Renders the input field for specifying stylesheet handles to load asynchronously.
  *
- * @param array $args arguments passed.
+ * Displays a text input where users can enter handles of stylesheets that should be loaded asynchronously by the optimizer.
+ *
+ * @param array $args Arguments passed to the callback.
  */
 function rt_scripts_optimizer_style_async_handles_callback($args)
 {
@@ -214,9 +222,9 @@ function rt_scripts_optimizer_style_async_handles_callback($args)
 }
 
 /**
- * Field callback to accept handles of stylesheets to be loaded asynchronously on windows event.
+ * Renders the input field for specifying stylesheet handles to load asynchronously on window events.
  *
- * @param array $args arguments passed.
+ * @param array $args Arguments passed to the callback.
  */
 function rt_scripts_optimizer_style_async_handles_onevent_callback($args)
 {
@@ -240,9 +248,11 @@ function rt_scripts_optimizer_style_async_handles_onevent_callback($args)
 }
 
 /**
- * Field callback to take input of whether to include amp-boilerplate css or not.
+ * Renders the checkbox field for enabling AMP boilerplate CSS loading in the settings page.
  *
- * @param array $args arguments passed.
+ * Displays a checkbox allowing users to enable or disable loading of AMP boilerplate CSS to help prevent Cumulative Layout Shift (CLS) issues.
+ *
+ * @param array $args Arguments passed to the field callback.
  */
 function rt_scripts_optimizer_load_amp_boilerplate_style_callback($args)
 {
@@ -262,9 +272,11 @@ function rt_scripts_optimizer_load_amp_boilerplate_style_callback($args)
 }
 
 /**
- * Field callback to take input of whether to skip all CSS concatination or not.
+ * Renders a checkbox field to enable or disable skipping all CSS concatenation.
  *
- * @param array $args arguments passed.
+ * When checked, this option disables CSS concatenation for all stylesheets, overriding any specific handle exclusions.
+ *
+ * @param array $args Arguments passed to the callback.
  */
 function rt_scripts_optimizer_skip_css_concatination_all_callback($args)
 {
@@ -284,9 +296,11 @@ function rt_scripts_optimizer_skip_css_concatination_all_callback($args)
 }
 
 /**
- * Field callback to take input of stylesheet handles which are not to be concated.
+ * Renders the input field for specifying stylesheet handles to exclude from CSS concatenation.
  *
- * @param array $args arguments passed.
+ * Displays a text input where users can enter handles of stylesheets that should not be concatenated. If the "skip all concatenation" option is enabled, this setting is ignored.
+ *
+ * @param array $args Arguments passed to the callback.
  */
 function rt_scripts_optimizer_skip_css_concatination_handles_callback($args)
 {
@@ -310,9 +324,11 @@ function rt_scripts_optimizer_skip_css_concatination_handles_callback($args)
 }
 
 /**
- * Field callback to accept handles of stylesheets to be commented out.
+ * Renders the input field for specifying stylesheet handles to be commented out in the HTML.
  *
- * @param array $args arguments passed.
+ * Displays a text input where users can enter handles of stylesheets that should be commented out, preventing them from loading on the site.
+ *
+ * @param array $args Arguments passed to the callback.
  */
 function rt_scripts_optimizer_comment_out_style_handles_callback($args)
 {
@@ -337,9 +353,11 @@ function rt_scripts_optimizer_comment_out_style_handles_callback($args)
 
 
 /**
- * Field callback to accept paths of scripts to exclude.
+ * Renders the input field for specifying script paths to exclude from optimization.
  *
- * @param array $args arguments passed.
+ * Displays a text input where users can enter script paths that should be excluded from the optimizer and loaded normally.
+ *
+ * @param array $args Arguments passed to the callback.
  */
 function rt_scripts_optimizer_paths_field_callback($args)
 {
@@ -366,7 +384,7 @@ function rt_scripts_optimizer_paths_field_callback($args)
 add_action('admin_menu', 'rt_scripts_optimizer_options_submenu');
 
 /**
- * Option page submenu callback.
+ * Registers the RT Scripts Optimizer settings page under the WordPress "Settings" menu.
  */
 function rt_scripts_optimizer_options_submenu()
 {
@@ -382,7 +400,9 @@ function rt_scripts_optimizer_options_submenu()
 
 
 /**
- * Top level menu callback function
+ * Renders the RT Scripts Optimizer plugin settings page in the WordPress admin.
+ *
+ * Displays the settings form, registered fields, and a save button for users with the appropriate capability.
  */
 function rt_scripts_optimizer_settings_template()
 {
