@@ -23,9 +23,9 @@ function rt_settings_init()
 	register_setting('rt-scripts-optimizer-settings', 'rt_scripts_optimizer_load_amp_boilerplate_style');
 	register_setting('rt-scripts-optimizer-settings', 'rt_scripts_optimizer_skip_css_concatination_all');
 	register_setting('rt-scripts-optimizer-settings', 'rt_scripts_optimizer_skip_css_concatination_handles');
+	register_setting('rt-scripts-optimizer-settings', 'rt_scripts_optimizer_comment_out_style_handles');
 	register_setting('rt-scripts-optimizer-settings', 'rt_scripts_optimizer_disable_js_optimizations');
 	register_setting('rt-scripts-optimizer-settings', 'rt_scripts_optimizer_disable_css_optimizations');
-	register_setting('rt-scripts-optimizer-settings', 'rt_scripts_optimizer_comment_out_style_handles');
 
 	// Register a new section for JS optimizations.
 	add_settings_section(
@@ -118,7 +118,7 @@ function rt_settings_init()
 	// Register a new field to fetch option whether to skip all CSS concatination.
 	add_settings_field(
 		'rt_scripts_optimizer_skip_css_concatination_all',
-		__('Skip all CSS concatenation', 'RT_Script_Optimizer'),
+		__('Skip all CSS concatination', 'RT_Script_Optimizer'),
 		'rt_scripts_optimizer_skip_css_concatination_all_callback',
 		'rt-scripts-optimizer-settings',
 		'rt_scripts_optimizer_css_settings_section'
@@ -127,7 +127,7 @@ function rt_settings_init()
 	// Register a new field to fetch handles of stylesheets which are not to be concated.
 	add_settings_field(
 		'rt_scripts_optimizer_skip_css_concatination_handles',
-		__('Skip CSS concatenation for these handles', 'RT_Script_Optimizer'),
+		__('Skip CSS concatination for these handles', 'RT_Script_Optimizer'),
 		'rt_scripts_optimizer_skip_css_concatination_handles_callback',
 		'rt-scripts-optimizer-settings',
 		'rt_scripts_optimizer_css_settings_section'
@@ -351,6 +351,76 @@ function rt_scripts_optimizer_skip_css_concatination_handles_callback($args)
 <?php
 }
 
+/**
+ * Field callback to accept handles of stylesheets to be commented out.
+ *
+ * @param array $args arguments passed.
+ */
+function rt_scripts_optimizer_comment_out_style_handles_callback($args)
+{
+
+	// option value.
+	$handles = get_option('rt_scripts_optimizer_comment_out_style_handles');
+?>
+
+	<input type="text"
+		id="rt_optimizer_comment_out_style_handles"
+		name="rt_scripts_optimizer_comment_out_style_handles"
+		value="<?php echo esc_attr($handles); ?>"
+		style="width:80%;">
+
+	<br>
+
+	<p class='description'>
+		<?php esc_html_e('Adding stylesheets\' handles here will comment them out in the HTML, preventing them from loading.', 'RT_Script_Optimizer'); ?>
+	</p>
+<?php
+}
+
+/**
+ * Field callback to disable JS optimizations.
+ *
+ * @param array $args arguments passed.
+ */
+function rt_scripts_optimizer_disable_js_optimizations_callback($args)
+{
+
+	// option value.
+	$disable_js_optimizations = get_option('rt_scripts_optimizer_disable_js_optimizations', '1');
+?>
+
+	<input type="checkbox" id="rt_optimizer_disable_js_optimizations" name="rt_scripts_optimizer_disable_js_optimizations" value="1" <?php checked($disable_js_optimizations, '1', true); ?>>
+
+	<br>
+
+	<p class='description'>
+		<?php esc_html_e('Check this if you want to disable all JS optimizations.', 'RT_Script_Optimizer'); ?>
+	</p>
+<?php
+}
+
+/**
+ * Field callback to disable CSS optimizations.
+ *
+ * @param array $args arguments passed.
+ */
+function rt_scripts_optimizer_disable_css_optimizations_callback($args)
+{
+
+	// option value.
+	$disable_css_optimizations = get_option('rt_scripts_optimizer_disable_css_optimizations', '1');
+?>
+
+	<input type="checkbox" id="rt_optimizer_disable_css_optimizations" name="rt_scripts_optimizer_disable_css_optimizations" value="1" <?php checked($disable_css_optimizations, '1', true); ?>>
+
+	<br>
+
+	<p class='description'>
+		<?php esc_html_e('Check this if you want to disable all CSS optimizations.', 'RT_Script_Optimizer'); ?>
+	</p>
+<?php
+}
+
 
 
 /**
@@ -375,66 +445,6 @@ function rt_scripts_optimizer_paths_field_callback($args)
 
 	<p class='description'>
 		<?php esc_html_e('Adding script path to this field will exclude them from optimizer and load them normally.', 'RT_Script_Optimizer'); ?>
-	</p>
-<?php
-}
-
-/**
- * Field callback to disable JS optimizations.
- *
- * @param array $args arguments passed.
- */
-function rt_scripts_optimizer_disable_js_optimizations_callback($args)
-{
-
-	// option value.
-	$disable_js_optimizations = get_option('rt_scripts_optimizer_disable_js_optimizations', '1');
-?>
-
-	<input type="checkbox" id="rt_optimizer_disable_js_optimizations" name="rt_scripts_optimizer_disable_js_optimizations" value="1" <?php checked($disable_js_optimizations, '1', true); ?>>
-	<p class='description'>
-		<?php esc_html_e('Check this to disable all JS optimizations.', 'RT_Script_Optimizer'); ?>
-	</p>
-<?php
-}
-
-/**
- * Field callback to disable CSS optimizations.
- *
- * @param array $args arguments passed.
- */
-function rt_scripts_optimizer_disable_css_optimizations_callback($args)
-{
-
-	// option value.
-	$disable_css_optimizations = get_option('rt_scripts_optimizer_disable_css_optimizations', '1');
-?>
-
-	<input type="checkbox" id="rt_optimizer_disable_css_optimizations" name="rt_scripts_optimizer_disable_css_optimizations" value="1" <?php checked($disable_css_optimizations, '1', true); ?>>
-	<p class='description'>
-		<?php esc_html_e('Check this to disable all CSS optimizations.', 'RT_Script_Optimizer'); ?>
-	</p>
-<?php
-}
-
-/**
- * Field callback to accept handles of stylesheets which are to be commented out.
- *
- * @param array $args arguments passed.
- */
-function rt_scripts_optimizer_comment_out_style_handles_callback($args)
-{
-
-	// option value.
-	$handles = get_option('rt_scripts_optimizer_comment_out_style_handles');
-?>
-
-	<input type="text" id="rt_optimizer_comment_out_style_handles" name="rt_scripts_optimizer_comment_out_style_handles" value="<?php echo esc_attr($handles); ?>" style="width:80%;">
-
-	<br>
-
-	<p class='description'>
-		<?php esc_html_e('Adding stylesheets\' handle here will make them be commented out in the HTML.', 'RT_Script_Optimizer'); ?>
 	</p>
 <?php
 }
