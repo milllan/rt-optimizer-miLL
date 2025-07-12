@@ -1,0 +1,29 @@
+.rt-optimizer-section-wrapper {
+    background: #fff;
+    border: 1px solid #c3c4c6;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    margin-top: 20px;
+    padding: 0;
+}
+
+.rt-optimizer-section-wrapper h2 {
+    font-size: 1.1em;
+    margin: 0;
+    padding: 1em 1.5em;
+    border-bottom: 1px solid #c3c4c6;
+}
+
+.rt-optimizer-section-wrapper .form-table {
+    margin: 0;
+    padding: 1em 1.5em;
+}
+
+.rt-optimizer-section-wrapper .form-table tr:not(:first-of-type) {
+    border-left: 4px solid #7e8993;
+}
+
+.rt-optimizer-section-wrapper .form-table tr:not(:first-of-type) th,
+.rt-optimizer-section-wrapper .form-table tr:not(:first-of-type) td {
+    padding-left: 25px;
+}
